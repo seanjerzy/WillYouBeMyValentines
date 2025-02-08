@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>100 Poems for You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      background: url('https://i.pinimg.com/originals/d2/3e/e2/d23ee267eeddba306eb19d98198a72e0.gif') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Pacifico', cursive;
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 3rem;
+      margin: 20px 0 0 0;
+      text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5);
+      color: #fff;
+    }
+    h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      margin: 10px 0 20px;
+      color: #fff;
+    }
+    .notepads {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .notepad {
+      background: #fff9c4;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transform: rotate(-1deg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.2rem;
+      color: #333;
+      text-align: center;
+    }
+    .notepad:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      animation: fadeIn 0.3s;
+    }
+    .modal-content {
+      position: relative;
+      margin: 10% auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      background: #fff9c4;
+      border: 2px solid #ff6f61;
+      border-radius: 10px;
+      transform: scale(0);
+      animation: zoomIn 0.3s forwards;
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #333;
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: #333;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+    /* Return to Main Page Button */
+    .return-button {
+      margin: 30px 0 50px;
+      padding: 10px 20px;
+      background: #ff6f61;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+    .return-button:hover {
+      background: #e65a50;
+    }
+  </style>
+</head>
+<body>
+  <h1>Things I want you to know daba..</h1>
+  <h2>Be my valentine</h2>
+  <div class="notepads" id="notepads">
+    <!-- Notepads will be generated dynamically -->
+  </div>
+
+  <!-- Modal for displaying the zoomed-in poem -->
+  <div id="poemModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="modalClose">&times;</span>
+      <p id="modalPoem"></p>
+    </div>
+  </div>
+  
+
+  <script>
+    // Array of poems (each poem contains 5-10 words; mix of Tagalog and English)
+    const poems = [
+      "You made me happy, lalo na when you love me the most.",
+      "Ikaw ang tahanan ng puso ko, sa'yo lang ako uuwi. 🏡",
+      "Every moment with you feels like a dream. I never want to wake up. 💭",
+      "Salamat sa pagmamahal mo, daba. Ikaw ang dahilan ng ngiti ko sa araw araw. 😊",
+      "You are my today and all of my tomorrows. I love you endlessly. 💖",
+      "Sa bawat araw na kasama ka, mas lalo kitang minamahal. 🌹",
+      "I am so lucky to have you in my life. You are my everything. 🍀",
+      "Ikaw ang pangarap ko na natupad. Salamat sa pagiging totoo mo. 🌟",
+      "You are the reason I believe in love. Thank you for being you. 💕",
+      "Sana habang buhay kitang makasama, daba. Mahal na mahal kita. 💑",
+      "Your love is my strength, my joy, my everything. I am forever yours. 💪",
+      "Ikaw lang ang mamahalin ko, ngayon at magpakailanman. 💍",
+      "Every day with you is a blessing. I cherish you more than words can say. 🙏",
+      "Salamat sa pagtanggap mo sa akin, daba. Ikaw ang pinakamagandang regalo sa akin. 🎁",
+      "You are my forever and always. I love you more than anything. 💞",
+      "Ikaw ang liwanag sa dilim ng buhay ko. Salamat sa pag-ibig mo. 🌟",
+      "I am so lucky to have found you. You are my soulmate. 💘",
+      "Sana lagi tayong magkasama, daba. Mahal na mahal kita. 💏",
+      "You are my heart, my soul, my everything. I love you endlessly. 💓",
+      "Ikaw ang pangarap ko na natupad. Salamat sa pagmamahal mo. 🌠",
+      "Gusto kong malaman mo na kakampi mo ako kahit ano man mangyari",
+      "Mahal kita dahil maalaga ka.",
+      "Mahal kita dahil pinaramdam mo sakin pano mahalin nang tama",
+      "Mahal kita dahil mahal ako nang pamilya mo<3",
+      "Palagi kitang mamahalin dahil ikaw ang hangganan ko",
+      "Pipilitin kong maayos tayo always rather than to find someone else",
+      "Ikaw ang nag sisilbing takbuhan ko",
+      "Ikaw din ang pinaka nakaka akit, pinaka sexy, at maganda sa mata ko",
+      "Di ko gets bat moko lagi inaaway at di ako ilovelove????",
+      "Kahit palagi tayong nag aaway, pag mamahal ko sayo'y di mawawalay",
+      "Ikaw na talaga wala nang iba sana ganon ka din:",
+      "I overthink because I'm scared to lose you daba",
+      "I really really love you I hope you know that"
+    ];
+
+    // Generate 100 notepads with randomly chosen poems from the array
+    const notepadsContainer = document.getElementById('notepads');
+    for (let i = 0; i < 100; i++) {
+      const notepad = document.createElement('div');
+      notepad.classList.add('notepad');
+      notepad.textContent = poems[Math.floor(Math.random() * poems.length)];
+      notepadsContainer.appendChild(notepad);
+    }
+
+    // Modal functionality for zooming in on a poem
+    const poemModal = document.getElementById('poemModal');
+    const modalPoem = document.getElementById('modalPoem');
+    const modalClose = document.getElementById('modalClose');
+
+    // When a notepad is clicked, show its content in the modal
+    document.querySelectorAll('.notepad').forEach(notepad => {
+      notepad.addEventListener('click', () => {
+        modalPoem.textContent = notepad.textContent;
+        poemModal.style.display = 'block';
+      });
+    });
+
+    // Close the modal when clicking the close button
+    modalClose.addEventListener('click', () => {
+      poemModal.style.display = 'none';
+    });
+
+    // Also close the modal when clicking outside the modal content
+    window.addEventListener('click', (e) => {
+      if (e.target === poemModal) {
+        poemModal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dear Emerald my beautiful Daba, Will you be my Valentine?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('https://i.pinimg.com/originals/d2/3e/e2/d23ee267eeddba306eb19d98198a72e0.gif') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Courier', sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6); /* Semi-transparent black background for better readability */
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #yesBtn {
+      background: #ff6f61;
+      color: white;
+    }
+
+    #noBtn {
+      background: #ffcccb;
+      color: #333;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      display: none;
+    }
+
+    #yesMessage {
+      color: #ff6f61;
+    }
+
+    #noMessage {
+      color: #f800a2;
+    }
+
+    #clickMeBtn {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      background: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: none;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Dear Emerald my beautiful Daba, Will you be my Valentine?</h1>
+    <div class="buttons">
+      <button id="yesBtn">❤️ YES</button>
+      <button id="noBtn">💔 NO</button>
+    </div>
+    <div class="message" id="yesMessage">
+      Great, let's have an amazing day! Thank you so much, Pala Daba, for making it at Feb 14 and coming back home early and ASAP. You don't know how much I missed you. I love you so much, and I want you to know how enough you are and how I am so lucky to have you.
+    </div>
+    <div class="message" id="noMessage">
+      NO?! NO UHH YOU HAVE NO CHOICE I CLICK MO YES!!
+    </div>
+    <button id="clickMeBtn">CLICK ME</button>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const yesMessage = document.getElementById('yesMessage');
+    const noMessage = document.getElementById('noMessage');
+    const clickMeBtn = document.getElementById('clickMeBtn');
+
+    yesBtn.addEventListener('click', () => {
+      yesMessage.style.display = 'block';
+      noMessage.style.display = 'none';
+      clickMeBtn.style.display = 'block';
+    });
+
+    noBtn.addEventListener('click', () => {
+      noMessage.style.display = 'block';
+      yesMessage.style.display = 'none';
+      setTimeout(() => {
+        noMessage.style.display = 'none';
+      }, 2000); // Reset after 2 seconds
+    });
+
+    clickMeBtn.addEventListener('click', () => {
+      window.location.href = 'gallery.html'; // Redirect to gallery page
+    });
+  </script>
+</body>
+</html>
